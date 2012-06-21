@@ -10,10 +10,10 @@ This field depends on Entry URL field. Install it before continuing.
 
 It allows the cool linking between Symphony entries so you will never have dead links any longer.
 
-1\_ Add an Entry URL field named `View on site` to a `Section A`
+1\_ Add an Entry URL field named `View on site` to a `Section A` (I assume you have a `Text box` with name = `Title`):
 
 Set a slick value for `Anchor Label`: `Link of "{entry/title}"`<br />
-Set a slick value for `Anchor URL`: `/entries/{//title/@handle}`
+Set a slick value for `Anchor URL`: `/entries/{entry/title/@handle}`
 
 2\_ Create some entries in `Section A`.
 
