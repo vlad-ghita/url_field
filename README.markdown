@@ -10,14 +10,16 @@ This field depends on Entry URL field. Install it before continuing.
 
 It allows the cool linking between Symphony entries so you will never have dead links any longer.
 
-1\_ Add an Entry URL field named `View on site` to a `Section A`. Create some entries.
+1\_ Add an Entry URL field named `View on site` to a `Section A`
 
 Set a slick value for `Anchor Label`: `Link of "{entry/title}"`<br />
 Set a slick value for `Anchor URL`: `/entries/{//title/@handle}`
 
-2\_ Go to `Section B` and add URL Field to it. Select `View on site` from `Section A` in `Values` selectbox.
+2\_ Create some entries in `Section A`.
 
-3\_ Create an entry in `Section B`. You can swtich between `Internal` and `External` links. Internal select will
+3\_ Go to `Section B` and add URL Field to it. Select `View on site` from `Section A` in `Values` selectbox.
+
+4\_ Create an entry in `Section B`. You can swtich between `Internal` and `External` links. Internal select will
 be populated with all entries from `Section A`.
 
 For External links, the value must be a valid URI.
