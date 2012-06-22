@@ -30,6 +30,6 @@ If you don't select any sections in field settings, the field will accept only E
 ## 2 Installation ##
 
 0. Install Entry URL field.
-1. Upload the 'url_url' folder in this archive to your Symphony 'extensions' folder.
-2. Enable it by selecting the "Field: URL", choose Enable from the with-selected menu, then click Apply.
-3. The field will be available in the list when creating a Section.
+1. Upload the `url_field` folder in this archive to your Symphony `extensions` folder.
+2. On `System -> Extensions` page install it by selecting the `Field: URL`, choose `Enable/Install` from the `With selected ...` menu, then click `Apply`.
+3. The `URL` field will be available in the list when creating a Section.
