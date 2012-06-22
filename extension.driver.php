@@ -11,7 +11,7 @@
 
 	class Extension_URL_Field extends Extension
 	{
-		const FIELD_TABLE = 'tbl_fields_url';
+		public $field_table = 'tbl_fields_url';
 
 		protected static $assets_loaded = false;
 
@@ -30,7 +30,7 @@
 					PRIMARY KEY (`id`),
 					KEY `field_id` (`field_id`)
 				) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;",
-				self::FIELD_TABLE
+				$this->field_table
 			));
 		}
 
@@ -38,7 +38,7 @@
 			try{
 				Symphony::Database()->query(sprintf(
 					"DROP TABLE `%s`",
-					self::FIELD_TABLE
+					$this->field_table
 				));
 			}
 			catch( DatabaseException $dbe ){
