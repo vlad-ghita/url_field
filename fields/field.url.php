@@ -11,6 +11,15 @@
 	class FieldURL extends Field
 	{
 
+		/**
+		 * Compatible field types. Only Entry URL atm.
+		 *
+		 * @var array
+		 */
+		public $field_types;
+
+
+
 		/*------------------------------------------------------------------------------------------------*/
 		/*  Definition  */
 		/*------------------------------------------------------------------------------------------------*/
@@ -20,6 +29,8 @@
 
 			$this->_name = 'URL';
 			$this->_required = 'yes';
+
+			$this->field_types = array('entry_url');
 		}
 
 		public function createTable(){
@@ -64,7 +75,7 @@
 
 					$fields = array();
 					foreach( $section_fields as $f ){
-						if( $f->get('type') === 'entry_url' ){
+						if( in_array($f->get('type'), $this->field_types) ){
 							$fields[] = array(
 								$f->get('id'),
 								is_array($this->get('related_field_id')) ? in_array($f->get('id'), $this->get('related_field_id')) : false,
