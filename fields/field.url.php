@@ -65,7 +65,7 @@
 		public function displaySettingsPanel(&$wrapper, $errors = null){
 			parent::displaySettingsPanel($wrapper, $errors);
 
-			$sections = SectionManager::fetch(null, 'ASC', 'sortorder');
+			$sections = SectionManager::fetch(null, 'ASC', 'name');
 			$options = array();
 
 			if( is_array($sections) && !empty($sections) )
