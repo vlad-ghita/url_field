@@ -307,8 +307,8 @@
 			$wrapper->appendChild($result);
 		}
 
-		public function prepareTableValue($data, XMLElement $link = null, $entry_id = null) {
-			if (empty($data)) return;
+		public function prepareTableValue($data, XMLElement $link = null, $entry_id = null){
+			if( empty($data) ) return;
 
 			$link = '';
 			$label = '';
@@ -325,50 +325,33 @@
 
 				case 'internal':
 					$entry = EntryManager::fetch($data['value']);
-					$entry = current($entry);
 
-					$section = SectionManager::fetch($entry->get('section_id'));
+					if( is_array($entry) ){
+						$entry = current($entry);
 
-					$link = SYMPHONY_URL.'/publish/'.$section->get('handle').'/edit/'.$data['value'];
+						$section = SectionManager::fetch($entry->get('section_id'));
 
-					$related_value = $this->findRelatedValues(array($data['value']));
-					$label = $related_value[0]['label'];
+						$link = SYMPHONY_URL.'/publish/'.$section->get('handle').'/edit/'.$data['value'];
+
+						$related_value = $this->findRelatedValues(array($data['value']));
+						$label = $related_value[0]['label'];
+					}
+					else{
+						$link = false;
+						$label = __("No data");
+					}
 
 					break;
 			}
 
-			return Widget::Anchor($label, $link)->generate();
-
-
-			$result = array();
-
-			if(!is_array($data) || (is_array($data) && !isset($data['relation_id']))) {
-				return parent::prepareTableValue(null);
+			if( $link !== false ){
+				$result = Widget::Anchor($label, $link)->generate();
+			}
+			else{
+				$result = $label;
 			}
 
-			if(!is_array($data['relation_id'])){
-				$data['relation_id'] = array($data['relation_id']);
-			}
-
-			$result = $this->findRelatedValues($data['relation_id']);
-
-			if(!is_null($link)){
-				$label = '';
-				foreach($result as $item){
-					$label .= ' ' . $item['value'];
-				}
-				$link->setValue(General::sanitize(trim($label)));
-				return $link->generate();
-			}
-
-			$output = '';
-
-			foreach($result as $item){
-				$link = Widget::Anchor($item['value'], sprintf('%s/publish/%s/edit/%d/', SYMPHONY_URL, $item['section_handle'], $item['id']));
-				$output .= $link->generate() . ' ';
-			}
-
-			return trim($output);
+			return $result;
 		}
 
 
