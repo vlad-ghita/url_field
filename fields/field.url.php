@@ -300,7 +300,7 @@
 				case 'internal':
 					$result->setAttribute('id',$data['value']);
 					$related_value = $this->findRelatedValues(array($data['value']));
-					$result->setValue($related_value[0]['value']);
+					$result->setValue(URL . $related_value[0]['value']);
 					break;
 			}
 
