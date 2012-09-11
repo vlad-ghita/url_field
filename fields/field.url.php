@@ -152,7 +152,7 @@
 				// Type internal
 				$label = Widget::Label();
 				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'internal', 'radio');
-				$input->setAttribute('data-target','internal');
+				$input->setAttribute('data-target', 'internal');
 				if( $type === 'internal' || empty($type) ) $input->setAttribute('checked', 'checked');
 				$label->setValue(__('%s Internal', array($input->generate())));
 				$div->appendChild($label);
@@ -160,7 +160,7 @@
 				// Type external
 				$label = Widget::Label();
 				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'external', 'radio');
-				$input->setAttribute('data-target','external');
+				$input->setAttribute('data-target', 'external');
 				if( $type === 'external' ) $input->setAttribute('checked', 'checked');
 				$label->setValue(__('%s External', array($input->generate())));
 				$div->appendChild($label);
@@ -273,7 +273,7 @@
 			if( isset($data['url_type']) ){
 				$result = array(
 					'url_type' => $data['url_type'],
-					'value' => $data[ 'value_'.$data['url_type'] ]
+					'value' => $data['value_'.$data['url_type']]
 				);
 			}
 
@@ -286,11 +286,11 @@
 		/*  Output  */
 		/*------------------------------------------------------------------------------------------------*/
 
-		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = null, $entry_id = null) {
-			if(!is_array($data) || empty($data) || is_null($data['value'])) return;
+		public function appendFormattedElement(XMLElement &$wrapper, $data, $encode = false, $mode = null, $entry_id = null){
+			if( !is_array($data) || empty($data) || is_null($data['value']) ) return;
 
 			$result = new XMLElement($this->get('element_name'));
-			$result->setAttribute('type',$data['url_type']);
+			$result->setAttribute('type', $data['url_type']);
 
 			switch( $data['url_type'] ){
 				case 'external':
@@ -298,7 +298,7 @@
 					break;
 
 				case 'internal':
-					$result->setAttribute('id',$data['value']);
+					$result->setAttribute('id', $data['value']);
 					$related_value = $this->findRelatedValues(array($data['value']));
 					$result->setValue(URL . $related_value[0]['value']);
 					break;
@@ -319,8 +319,8 @@
 
 			switch( $data['url_type'] ){
 				case 'external':
-					$link = $data['value'];
-					$label = $data['value'];
+					$link = empty($data['value']) ? false : $data['value'];
+					$label = empty($data['value']) ? __("No data") : $data['value'];
 					break;
 
 				case 'internal':
