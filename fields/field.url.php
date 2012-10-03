@@ -143,43 +143,43 @@
 
 			$base_name = 'fields'.$prefix.'['.$this->get('element_name').']';
 
-			// Type
-			$type = $data['url_type'];
 
-			if( !empty($states) ){
-				$div = new XMLElement('div', null, array('class' => 'url_type'));
-
-				// Type internal
-				$label = Widget::Label();
-				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'internal', 'radio');
-				$input->setAttribute('data-target', 'internal');
-				if( $type === 'internal' || empty($type) ) $input->setAttribute('checked', 'checked');
-				$label->setValue(__('%s Internal', array($input->generate())));
-				$div->appendChild($label);
-
-				// Type external
-				$label = Widget::Label();
-				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'external', 'radio');
-				$input->setAttribute('data-target', 'external');
-				if( $type === 'external' ) $input->setAttribute('checked', 'checked');
-				$label->setValue(__('%s External', array($input->generate())));
-				$div->appendChild($label);
-
-				$wrapper->appendChild($div);
-			}
-			else{
-				// Type external
-				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'external', 'hidden');
-				$wrapper->appendChild($input);
-			}
-
-
-			// Value
+			// Label
 			$label = Widget::Label($this->get('label'));
 			if( $this->get('required') != 'yes' ) $label->appendChild(new XMLElement('i', __('Optional')));
 
 
-			// Type Internal
+			// Type
+			$type = $data['url_type'];
+			if( !empty($states) ){
+				$div = new XMLElement('div', null, array('class' => 'url_type'));
+
+				// Type internal
+				$labeli = Widget::Label();
+				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'internal', 'radio');
+				$input->setAttribute('data-target', 'internal');
+				if( $type === 'internal' || empty($type) ) $input->setAttribute('checked', 'checked');
+				$labeli->setValue(__('%s Internal', array($input->generate())));
+				$div->appendChild($labeli);
+
+				// Type external
+				$labele = Widget::Label();
+				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'external', 'radio');
+				$input->setAttribute('data-target', 'external');
+				if( $type === 'external' ) $input->setAttribute('checked', 'checked');
+				$labele->setValue(__('%s External', array($input->generate())));
+				$div->appendChild($labele);
+
+				$label->appendChild($div);
+			}
+			else{
+				// Type external
+				$input = Widget::Input($base_name.'[url_type]'.$postfix, 'external', 'hidden');
+				$label->appendChild($input);
+			}
+
+
+			// Value Internal
 			$options = array();
 			if( $this->get('required') != 'yes' ) $options[] = array(null, false, null);
 
@@ -189,10 +189,12 @@
 					foreach( $s['values'] as $id => $v ){
 						$group['options'][] = array($id, in_array($id, $entry_ids), General::sanitize($v));
 					}
+
 					// sort entries alphabetically
 					uasort($group['options'], function($a, $b){
 						return $a[2] > $b[2];
 					});
+
 					$options[] = $group;
 				}
 
@@ -212,7 +214,7 @@
 			}
 
 
-			// Type external
+			// Value external
 			$input = Widget::Input(
 				$base_name.'[value_external]'.$postfix,
 				$type === 'external' && !empty($data['value']) ? $data['value'] : '',
@@ -319,8 +321,8 @@
 
 			switch( $data['url_type'] ){
 				case 'external':
-					$link = empty($data['value']) ? false : $data['value'];
-					$label = empty($data['value']) ? __("No data") : $data['value'];
+					$link = $data['value'];
+					$label = $data['value'];
 					break;
 
 				case 'internal':
